@@ -1,8 +1,14 @@
 <h2>Rectangle Creator</h2>
+<p>this is a good rectangle</p>
 <p>Count: <input id="count" value="5"></p>
-<button id="create">Create</button>
 <button id="cancel">Cancel</button>
+<button id="create">Create Rectangles</button>
+<button id="update"> Update</button>
 <script>
+
+document.getElementById('update').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'update-nodes',  } }, '*')
+}
 
 document.getElementById('create').onclick = () => {
   const textbox = document.getElementById('count');

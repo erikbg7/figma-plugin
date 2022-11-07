@@ -12,6 +12,30 @@ figma.showUI(__html__);
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 figma.ui.onmessage = msg => {
+
+
+
+  
+  // Update message to a node text
+  if(msg.type === 'update-nodes') {
+    console.log('update-nodes')
+    console.log({figma})
+    console.log(msg)
+    const nodes = figma.currentPage.selection
+    console.log(nodes)
+    nodes.forEach(node => {
+      console.log({node})
+      if (isTextNode(node)) {
+        figma.loadFontAsync({ family: "Inter", style: "Medium" }).then(() => {
+          console.log('is text node')
+          node.characters = 'Hello World only refers to a type, but is being used as a value here.';
+        })
+      } else {
+        node.x = node.x + 200;
+      }
+    })
+  }
+
   // One way of distinguishing between different types of messages sent from
   // your HTML page is to use an object with a "type" property like this.
   if (msg.type === 'create-rectangles') {
@@ -25,9 +49,13 @@ figma.ui.onmessage = msg => {
     }
     figma.currentPage.selection = nodes;
     figma.viewport.scrollAndZoomIntoView(nodes);
+    figma.closePlugin();
   }
 
   // Make sure to close the plugin when you're done. Otherwise the plugin will
   // keep running, which shows the cancel button at the bottom of the screen.
-  figma.closePlugin();
+};
+
+function isTextNode(node: SceneNode): node is TextNode {
+  return (node as TextNode).characters !== undefined;
 };
