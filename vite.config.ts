@@ -4,7 +4,7 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: "./ui-src",
+  root: "./ui",
   plugins: [reactRefresh(), viteSingleFile()],
   build: {
     target: "esnext",
