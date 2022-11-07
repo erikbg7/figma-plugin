@@ -12,7 +12,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 100000000,
     cssCodeSplit: false,
     brotliSize: false,
-    outDir: "./dist",
+    outDir: "../dist",
     rollupOptions: {
       inlineDynamicImports: true,
       output: {
