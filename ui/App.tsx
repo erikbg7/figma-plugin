@@ -1,51 +1,28 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react';
+import { channelsData, IChannel } from './content/channels';
 
 function App() {
+  const [content, setContent] = React.useState<IChannel[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onCreate = () => {
-    const count = Number(inputRef.current?.value || 0);
-    parent.postMessage(
-      { pluginMessage: { type: "create-rectangles", count } },
-      "*"
-    );
+  const onCopyText = (text: string) => {
+    parent.postMessage({ pluginMessage: { type: 'update-nodes', text } }, '*');
   };
 
-  const onCancel = () => {
-    parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-  };
+  const onShowContent = () => setContent(channelsData);
 
   return (
     <main>
-      <header>
-        <h2>Rectangle Creator</h2>
-      </header>
-      <section>
-        <input id="input" type="number" min="0" ref={inputRef} />
-        <label htmlFor="input">Rectangle Count</label>
+      <section className="flex flex-col">
+        <button onClick={onShowContent}>Channels</button>
+        {content && (
+          <div>
+            {content.map((c) => (
+              <button onClick={() => onCopyText(c.title)}>{c.title}</button>
+            ))}
+          </div>
+        )}
       </section>
-      <section>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-        <div>Test</div>
-      </section>
-      <footer className="bg-red-500">
-        <button className="brand" onClick={onCreate}>
-          Create
-        </button>
-        <button onClick={onCancel}>Cancel</button>
-      </footer>
     </main>
   );
 }
