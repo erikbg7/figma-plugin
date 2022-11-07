@@ -1,10 +1,11 @@
 {
-  "name": "Test_1",
+  "name": "XperAi Figma Plugin",
   "id": "1171490268659965449",
   "api": "1.0.0",
-  "main": "code.js",
+  "permissions": [],
+  "main": "dist/code.js",
+  "ui": "dist/index.html",
   "editorType": [
     "figma"
-  ],
-  "ui": "ui.html"
+  ]
 }
