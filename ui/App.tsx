@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { TreeRenderer } from './components/TreeRenderer';
 import { channelsData, IChannel } from './content/channels';
 
 function App() {
@@ -14,12 +15,12 @@ function App() {
   return (
     <main>
       <section className="flex flex-col">
-        <button onClick={onShowContent}>Channels</button>
-        {content && (
-          <div>
-            {content.map((c) => (
-              <button onClick={() => onCopyText(c.title)}>{c.title}</button>
-            ))}
+        <button className="flex justify-start py-3 text-lg font-semibold" onClick={onShowContent}>
+          Channels
+        </button>
+        {!!content.length && (
+          <div className="p-2">
+            <TreeRenderer list={content} onContentClick={onCopyText} />
           </div>
         )}
       </section>

@@ -16,12 +16,15 @@ figma.ui.onmessage = (msg) => {
   if (msg.type === 'update-nodes') {
     const nodes = figma.currentPage.selection;
     nodes.forEach((node) => {
+      console.log({ node });
+
+      // If the selected node is a text node, copy the payload text to it
       if (isTextNode(node) && msg.text) {
-        figma.loadFontAsync({ family: 'Inter', style: 'Medium' }).then(() => {
-          node.characters = msg.text;
-        });
-      } else {
-        node.x = node.x + 200;
+        const font = isValidFontName(node.fontName)
+          ? { family: node.fontName.family, style: node.fontName.style }
+          : { family: 'Inter', style: 'Medium' };
+
+        figma.loadFontAsync(font).then(() => (node.characters = msg.text));
       }
     });
   }
@@ -30,3 +33,11 @@ figma.ui.onmessage = (msg) => {
 function isTextNode(node: SceneNode): node is TextNode {
   return (node as TextNode).characters !== undefined;
 }
+
+function isValidFontName(fontName: TextNode['fontName']): fontName is FontName {
+  return (fontName as FontName).family !== undefined && (fontName as FontName).style !== undefined;
+}
+
+// function isTexNode(node: SceneNode): node is TextNode {
+//   return (node as Node).characters !== undefined;
+// }
