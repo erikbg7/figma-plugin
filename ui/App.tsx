@@ -40,7 +40,7 @@ function App() {
         <div>Test</div>
         <div>Test</div>
       </section>
-      <footer>
+      <footer className="bg-red-500">
         <button className="brand" onClick={onCreate}>
           Create
         </button>
