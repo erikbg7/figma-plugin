@@ -4,15 +4,13 @@ import { breadcrumbAtom } from '../atoms/breadcrumb';
 
 interface Props {
   label: string;
-  onClick: () => void;
 }
 
-const TreeBranch: React.FC<Props> = ({ label, onClick }) => {
+const TreeBranch: React.FC<Props> = ({ label }) => {
   const addBreadcrumb = useUpdateAtom(breadcrumbAtom);
 
   const handleOnClick = () => {
-    onClick();
-    addBreadcrumb((crumbs) => [...crumbs, label]);
+    addBreadcrumb((crumbs) => ({ ...crumbs, branch: label }));
   };
 
   return (

@@ -3,15 +3,16 @@ import { useAtomValue } from 'jotai/utils';
 import { breadcrumbAtom } from '../atoms/breadcrumb';
 
 const BreadCrumb = () => {
-  const crumbs = useAtomValue(breadcrumbAtom);
+  const breadcrumb = useAtomValue(breadcrumbAtom);
 
   return (
     <div>
-      <h1>
-        {crumbs.map((c, i) => (
-          <span>{i === 0 ? c : ' / '.concat(c)}</span>
-        ))}
-      </h1>
+      <h2>
+        {breadcrumb.root && <span>{breadcrumb.home} </span>}
+        {breadcrumb.root && <span>/ {breadcrumb.root} </span>}
+        {breadcrumb.branch && <span>/ {breadcrumb.branch} </span>}
+        {breadcrumb.leaf && <span>/ {breadcrumb.leaf} </span>}
+      </h2>
     </div>
   );
 };
