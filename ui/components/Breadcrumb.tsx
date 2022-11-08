@@ -39,9 +39,9 @@ const BreadCrumb = () => {
   const handleRootClick = () => setFilters((s) => ({ home: s.home, root: s.root }));
 
   return (
-    <div className="p-3 text-sm">
+    <div className="p-4 text-sm">
       <h2 className="flex items-center">
-        {root && <Crumb home text={home} onClick={handleHomeClick} />}
+        {home && <Crumb home text={home} onClick={handleHomeClick} />}
         {root && <Crumb text={root} onClick={handleRootClick} />}
         {branch && <Crumb text={branch} />}
         {leaf && <Crumb text={leaf} />}

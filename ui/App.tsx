@@ -12,9 +12,7 @@ function App() {
     <main>
       <section className="flex flex-col">
         <BreadCrumb />
-        <div className="p-2">
-          <TreeRenderer list={content} onContentClick={onCopyText} />
-        </div>
+        <TreeRenderer list={content} onContentClick={onCopyText} />
       </section>
     </main>
   );
