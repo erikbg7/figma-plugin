@@ -8,10 +8,9 @@ import { TreeLeaves } from './TreeLeaves';
 
 interface Props {
   list: Record<string, Array<IChannel>>;
-  onContentClick: (text: string) => void;
 }
 
-const TreeRenderer: React.FC<Props> = ({ list, onContentClick }) => {
+const TreeRenderer: React.FC<Props> = ({ list }) => {
   const breadcrumbs = useAtomValue(breadcrumbAtom);
 
   if (breadcrumbs.root) {
@@ -19,7 +18,7 @@ const TreeRenderer: React.FC<Props> = ({ list, onContentClick }) => {
     if (breadcrumbs.branch) {
       /* @ts-ignore */
       const leaves = list[breadcrumbs.root].map((c) => c[breadcrumbs.branch]);
-      return <TreeLeaves leaves={leaves} onClick={onContentClick} />;
+      return <TreeLeaves leaves={leaves} />;
     } else {
       const branches = Object.keys(list[breadcrumbs.root][0]);
       return <TreeBranches branches={branches} />;
