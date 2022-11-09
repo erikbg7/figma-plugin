@@ -18,7 +18,8 @@ const TreeRenderer: React.FC<Props> = ({ list }) => {
     if (breadcrumbs.branch) {
       /* @ts-ignore */
       const leaves = list[breadcrumbs.root].map((c) => c[breadcrumbs.branch]);
-      return <TreeLeaves leaves={leaves} />;
+      const isImageBranch = breadcrumbs.branch === 'image';
+      return <TreeLeaves isImageBranch={isImageBranch} leaves={leaves} />;
     } else {
       const branches = Object.keys(list[breadcrumbs.root][0]);
       return <TreeBranches branches={branches} />;
