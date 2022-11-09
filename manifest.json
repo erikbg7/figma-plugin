@@ -5,7 +5,5 @@
   "permissions": [],
   "main": "dist/code.js",
   "ui": "dist/index.html",
-  "editorType": [
-    "figma"
-  ]
+  "editorType": ["figma"]
 }
