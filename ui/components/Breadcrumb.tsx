@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAtom } from 'jotai';
-import { useAtomValue } from 'jotai/utils';
-import { breadcrumbAtom } from '../atoms/breadcrumb';
+import { treeAtom } from '../atoms/tree';
 import { HomeIcon } from './HomeIcon';
 
 const className = '';
@@ -32,11 +31,11 @@ const Crumb: React.FC<Props> = ({ home, text, onClick }) => {
 };
 
 const BreadCrumb = () => {
-  const [filters, setFilters] = useAtom(breadcrumbAtom);
-  const { home, root, branch, leaf } = filters;
+  const [tree, setTree] = useAtom(treeAtom);
+  const { home, root, branch, leaf } = tree;
 
-  const handleHomeClick = () => setFilters({ home: 'Home' });
-  const handleRootClick = () => setFilters((s) => ({ home: s.home, root: s.root }));
+  const handleHomeClick = () => setTree({ home: 'Home' });
+  const handleRootClick = () => setTree((t) => ({ home: t.home, root: t.root }));
 
   return (
     <div className="p-4 text-sm">

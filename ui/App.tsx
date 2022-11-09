@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { BreadCrumb } from './components/Breadcrumb';
 import { TreeRenderer } from './components/TreeRenderer';
-import { content } from './content/channels';
+import { content } from './content';
 
 function App() {
   return (

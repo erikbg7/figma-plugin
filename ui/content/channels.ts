@@ -92,12 +92,5 @@ const channelsData: IChannel[] = [
   },
 ];
 
-const content: Record<string, Array<IChannel>> = {
-  channels: channelsData,
-  cards: [],
-  games: [],
-  microapps: [],
-};
-
-export { channelsData, content };
+export { channelsData };
 export type { IChannel };

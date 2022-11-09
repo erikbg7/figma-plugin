@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUpdateAtom } from 'jotai/utils';
-import { breadcrumbAtom } from '../atoms/breadcrumb';
+import { treeAtom } from '../atoms/tree';
 import { capitalize } from '../utils';
 
 interface Props {
@@ -8,8 +8,8 @@ interface Props {
 }
 
 const TreeRoots: React.FC<Props> = ({ roots }) => {
-  const setBreadcrum = useUpdateAtom(breadcrumbAtom);
-  const addBreadcrumb = () => setBreadcrum((crumbs) => ({ ...crumbs, root: 'channels' }));
+  const setTree = useUpdateAtom(treeAtom);
+  const addTree = () => setTree((tree) => ({ ...tree, root: 'channels' }));
 
   return (
     <div className="flex flex-col px-6">
@@ -20,7 +20,7 @@ const TreeRoots: React.FC<Props> = ({ roots }) => {
           }`}
         >
           <div>--- </div>
-          <button className="mx-3 mt-1 px-1 rounded-lg bg-sky-300" onClick={addBreadcrumb}>
+          <button className="mx-3 mt-1 px-1 rounded-lg bg-sky-300" onClick={addTree}>
             {capitalize(root)}
           </button>
         </div>

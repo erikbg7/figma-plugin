@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUpdateAtom } from 'jotai/utils';
-import { breadcrumbAtom } from '../atoms/breadcrumb';
+import { treeAtom } from '../atoms/tree';
 import { capitalize } from '../utils';
 
 interface Props {
@@ -8,8 +8,8 @@ interface Props {
 }
 
 const TreeBranches: React.FC<Props> = ({ branches }) => {
-  const setBreadcrumbs = useUpdateAtom(breadcrumbAtom);
-  const addBreadcrumb = (branch: string) => setBreadcrumbs((crumbs) => ({ ...crumbs, branch }));
+  const setBreadcrumbs = useUpdateAtom(treeAtom);
+  const addBreadcrumb = (branch: string) => setBreadcrumbs((tree) => ({ ...tree, branch }));
 
   return (
     <div className="flex flex-col px-6">

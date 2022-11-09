@@ -1,7 +1,7 @@
 import React from 'react';
 import { IChannel } from '../content/channels';
 import { useAtomValue } from 'jotai/utils';
-import { breadcrumbAtom } from '../atoms/breadcrumb';
+import { treeAtom } from '../atoms/tree';
 import { TreeRoots } from './TreeRoots';
 import { TreeBranches } from './TreeBranches';
 import { TreeLeaves } from './TreeLeaves';
@@ -11,17 +11,17 @@ interface Props {
 }
 
 const TreeRenderer: React.FC<Props> = ({ list }) => {
-  const breadcrumbs = useAtomValue(breadcrumbAtom);
+  const tree = useAtomValue(treeAtom);
 
-  if (breadcrumbs.root) {
+  if (tree.root) {
     console.log('root');
-    if (breadcrumbs.branch) {
+    if (tree.branch) {
       /* @ts-ignore */
-      const leaves = list[breadcrumbs.root].map((c) => c[breadcrumbs.branch]);
-      const isImageBranch = breadcrumbs.branch === 'image';
+      const leaves = list[tree.root].map((c) => c[tree.branch]);
+      const isImageBranch = tree.branch === 'image';
       return <TreeLeaves isImageBranch={isImageBranch} leaves={leaves} />;
     } else {
-      const branches = Object.keys(list[breadcrumbs.root][0]);
+      const branches = Object.keys(list[tree.root][0]);
       return <TreeBranches branches={branches} />;
     }
   } else {
