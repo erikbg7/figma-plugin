@@ -45,29 +45,46 @@
     }
 
     // Create an event handler to receive messages from the main thread
+    // window.onmessage = async (event) => {
+    //   // Just get the bytes directly from the pluginMessage since that's
+    //   // the only type of message we'll receive in this plugin. In more
+    //   // complex plugins, you'll want to check the type of the message.
+    //   const bytes = event.data.pluginMessage;
+
+    //   const canvas = document.createElement('canvas');
+    //   const ctx = canvas.getContext('2d');
+
+    //   const imageData = await decode(canvas, ctx, bytes);
+    //   const pixels = imageData.data;
+
+    //   // Do the actual work of inverting colors
+    //   for (let i = 0; i < pixels.length; i += 4) {
+    //     pixels[i + 0] = 255 - pixels[i + 0];
+    //     pixels[i + 1] = 255 - pixels[i + 1];
+    //     pixels[i + 2] = 255 - pixels[i + 2];
+    //     // don't invert opacity channel
+    //   }
+
+    //   const newBytes = await encode(canvas, ctx, imageData);
+
+    //   window.parent.postMessage({ pluginMessage: newBytes }, '*');
+    // };
+  </script>
+  <script>
     window.onmessage = async (event) => {
-      // Just get the bytes directly from the pluginMessage since that's
-      // the only type of message we'll receive in this plugin. In more
-      // complex plugins, you'll want to check the type of the message.
-      const bytes = event.data.pluginMessage;
-
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      const imageData = await decode(canvas, ctx, bytes);
-      const pixels = imageData.data;
-
-      // Do the actual work of inverting colors
-      for (let i = 0; i < pixels.length; i += 4) {
-        pixels[i + 0] = 255 - pixels[i + 0];
-        pixels[i + 1] = 255 - pixels[i + 1];
-        pixels[i + 2] = 255 - pixels[i + 2];
-        // don't invert opacity channel
+      if (event.data.pluginMessage.type === 'networkRequest') {
+        var request = new XMLHttpRequest();
+        // This link has random lorem ipsum text
+        request.open(
+          'GET',
+          'http://media-cms.dev.ayoba.me//cms-root//styles//endpoint_images//s3//media//image//2022-04//SA2.jpg?itok=5YKBxOTg'
+        );
+        request.responseType = 'text';
+        request.onload = () => {
+          window.parent.postMessage({ pluginMessage: request.response }, '*');
+        };
+        request.send();
       }
-
-      const newBytes = await encode(canvas, ctx, imageData);
-
-      window.parent.postMessage({ pluginMessage: newBytes }, '*');
     };
   </script>
 </html>

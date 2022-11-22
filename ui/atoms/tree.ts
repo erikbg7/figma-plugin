@@ -7,7 +7,7 @@ interface ITree {
   leaf?: string;
 }
 
-const treeAtom = atom<ITree>({ home: 'Home', root: 'channels', branch: 'image' });
+const treeAtom = atom<ITree>({ home: 'Home' });
 
 export { treeAtom };
 export type { ITree };
