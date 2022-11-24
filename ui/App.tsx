@@ -1,37 +1,33 @@
-import React, { useRef } from 'react';
-import { BreadCrumb } from './components/Breadcrumb';
-import { TreeRenderer } from './components/TreeRenderer';
-import { content } from './content';
+import React from 'react';
+import CategorySelector from './components/CategorySelector';
+import LanguageSelector from './components/LanguageSelector';
+import SelectionViewer from './components/SelectionViewer';
+import SyncButton from './components/SyncButton';
 import { CHANNELS } from './fixtures/channels';
 
 function App() {
-  const [selectedAmount, setSelectedAmount] = React.useState(0);
-
-  React.useEffect(() => {
-    window.onmessage = (event) => {
-      console.log('window event', event);
-      const { length } = event.data.pluginMessage;
-
-      setSelectedAmount(length);
-    };
-
-    // const handleChange = (ev: any) => setSelectedAmount(ev.target.value);
-    // document.addEventListener('onSelectionChanged', handleChange);
-    // return () => document.removeEventListener('onSelectionChanged', handleChange);
-  }, []);
-
   const handleChannelsSync = () => {
     const data = { content: CHANNELS };
     window.parent.postMessage({ pluginMessage: { data } }, '*');
   };
 
   return (
-    <main>
-      <section className="flex flex-col">
-        <div>{selectedAmount}</div>
-        <div>nodes selected</div>
-        <button onClick={handleChannelsSync}>Sync as Channels</button>
+    <main className="flex flex-col w-full h-full">
+      <header className="w-full text-center py-5 border-b border-gray-300">
+        <SelectionViewer />
+      </header>
+
+      <section>
+        <LanguageSelector />
       </section>
+
+      <section className="flex flex-col flex-1 w-full">
+        <CategorySelector />
+      </section>
+
+      <footer className="border-t border-gray-300">
+        <SyncButton onSync={handleChannelsSync} />
+      </footer>
     </main>
   );
 }

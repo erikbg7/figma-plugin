@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-200;
+  @apply bg-sky-100;
+}
+
+.outlined-blue-button {
+  @apply w-[50%] p-1 text-center border border-sky-500 transition-colors;
 }
 
 .border-half {
