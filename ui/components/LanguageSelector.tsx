@@ -1,7 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 
-const LANGUAGES = {
+type ILanguage = 'en' | 'ar';
+
+const LANGUAGES: Record<ILanguage, string> = {
   en: 'English',
   ar: 'Arabic',
 };
@@ -34,3 +36,4 @@ const LanguageSelector = () => {
 };
 
 export default LanguageSelector;
+export type { ILanguage };
