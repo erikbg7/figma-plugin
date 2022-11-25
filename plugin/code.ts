@@ -5,6 +5,15 @@
 // You can access browser APIs in the "/ui" folder which has a
 // full browser environment (see documentation).
 
+/////////////////////////////////////////////
+///////////////// TYPES /////////////////////
+/////////////////////////////////////////////
+interface IContent extends Record<string, string> {}
+
+interface IMessage {
+  data: { contents: IContent[] };
+}
+
 ///////////////////////////////////////////////
 ///////////////// CONSTANTS ///////////////////
 ///////////////////////////////////////////////
@@ -18,9 +27,9 @@ const handleSelectionUpdate = () => {
   figma.ui.postMessage({ type: 'selection-change', length });
 };
 
-const handleContentSync = (message: any) => {
+const handleContentSync = (message: IMessage) => {
   const nodes = figma.currentPage.selection;
-  nodes?.forEach((n) => appendData(n as FrameNode, message.data.content));
+  nodes?.forEach((n) => appendData(n as FrameNode, message.data.contents));
 };
 
 ///////////////////////////////////////////////
@@ -31,14 +40,14 @@ figma.on('run', handleSelectionUpdate);
 figma.on('selectionchange', handleSelectionUpdate);
 figma.ui.onmessage = handleContentSync;
 
-const appendData = (node: FrameNode, content: Record<string, string>[]) => {
+const appendData = (node: FrameNode, contents: IContent[]) => {
   // @ts-ignore
   if (node?.name.startsWith('#')) {
     const param = node.name.slice(1);
-    const randomIndex = Math.floor(Math.random() * content.length);
-    isTextNode(node) && appendTextToNode(node, content[randomIndex][param]);
+    const randomIndex = Math.floor(Math.random() * contents.length);
+    isTextNode(node) && appendTextToNode(node, contents[randomIndex][param]);
   }
-  node.children?.forEach((n) => appendData(n as FrameNode, content));
+  node.children?.forEach((n) => appendData(n as FrameNode, contents));
 };
 
 const appendTextToNode = (node: TextNode, text: string | undefined) => {

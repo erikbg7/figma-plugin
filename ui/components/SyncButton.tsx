@@ -3,12 +3,18 @@ import { useAtomValue } from 'jotai';
 import { configAtom } from '../atoms/config';
 import { CHANNELS } from '../fixtures/channels';
 
+interface IContent extends Record<string, string> {}
+
+interface IMessage {
+  data: { contents: IContent[] };
+}
+
 const SyncButton = () => {
   const { language, category } = useAtomValue(configAtom);
 
   const handleSync = () => {
-    const data = { content: CHANNELS };
-    window.parent.postMessage({ pluginMessage: { data } }, '*');
+    const pluginMessage: IMessage = { data: { contents: CHANNELS } };
+    window.parent.postMessage({ pluginMessage }, '*');
   };
 
   return (

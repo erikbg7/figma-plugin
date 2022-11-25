@@ -1,4 +1,4 @@
-const CHANNELS = [
+const CHANNELS: Record<string, string>[] = [
   {
     title: "Stefano's NR Channel",
     subtitle: 'The non-registered channel for Stefano',
