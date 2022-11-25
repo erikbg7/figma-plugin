@@ -3,14 +3,8 @@ import CategorySelector from './components/CategorySelector';
 import LanguageSelector from './components/LanguageSelector';
 import SelectionViewer from './components/SelectionViewer';
 import SyncButton from './components/SyncButton';
-import { CHANNELS } from './fixtures/channels';
 
 function App() {
-  const handleChannelsSync = () => {
-    const data = { content: CHANNELS };
-    window.parent.postMessage({ pluginMessage: { data } }, '*');
-  };
-
   return (
     <main className="flex flex-col w-full h-full">
       <header className="w-full text-center py-5 border-b border-gray-300">
@@ -26,7 +20,7 @@ function App() {
       </section>
 
       <footer className="border-t border-gray-300">
-        <SyncButton onSync={handleChannelsSync} />
+        <SyncButton />
       </footer>
     </main>
   );

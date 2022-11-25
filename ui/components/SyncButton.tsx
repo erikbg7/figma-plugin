@@ -1,12 +1,18 @@
 import React from 'react';
+import { useAtomValue } from 'jotai';
+import { configAtom } from '../atoms/config';
+import { CHANNELS } from '../fixtures/channels';
 
-interface Props {
-  onSync: () => void;
-}
+const SyncButton = () => {
+  const { language, category } = useAtomValue(configAtom);
 
-const SyncButton: React.FC<Props> = ({ onSync }) => {
+  const handleSync = () => {
+    const data = { content: CHANNELS };
+    window.parent.postMessage({ pluginMessage: { data } }, '*');
+  };
+
   return (
-    <button className="flex justify-center w-full py-3 text-sky-500" onClick={onSync}>
+    <button className="flex justify-center w-full py-3 text-sky-500" onClick={handleSync}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
